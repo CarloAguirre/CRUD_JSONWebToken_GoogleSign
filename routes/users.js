@@ -1,14 +1,15 @@
 // esta funcionalidad de express nos permitira "enrutar"
 import { Router } from "express";
 import { check } from "express-validator";
+
 import { deleteUsuario, getUsuario, patchUsuario, postUsuario, putUsuario } from "../controllers/users.js";
 import { validarCorreo, validarUsuarioPorId } from "../helpers/db-validators.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
 import { tieneRol, validarAdminRole } from "../middlewares/validar-roles.js";
-//creamos la const 'router' que reemplazara a 'app'
-const router = Router()
 
+
+const router = Router()
 
 router.get('/', getUsuario);  
 
