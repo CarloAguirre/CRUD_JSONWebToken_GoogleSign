@@ -6,7 +6,7 @@ const generarJWT = (uid = '')=>{
         
         //en el modelo "user" cambiamos '_id' por 'uid'
         const payload = {uid};
-    
+        
         //la firma funciona en base a una promesa con callback
         jwt.sign(payload, process.env.JWTOKEN, {
             expiresIn: '4h'

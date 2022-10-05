@@ -87,10 +87,17 @@ const deleteUsuario =  async(req, res = response)=> {
     // borrar fisicamente (no aconsejable):
     //const usuario = await Usuario.findByIdAndDelete(id)
 
-    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false})
+    const usuarioBorrado = await Usuario.findByIdAndUpdate(id, {estado: false})
+
+    // TODO : Si el usuario ya ha sido borrado debiera enviar un 
+
+    // El usuario Autenticado es aquel que posee un JWT y que por tanto puede realizar 'delete' de usuarios. Esta constante (req.usuario) se genero en middlewares/validar-jwt.
+    const usuarioAutenticado = req.usuario;
+
 
     res.json({                                
-        usuario
+        usuarioBorrado,
+        usuarioAutenticado
     })
 };
 

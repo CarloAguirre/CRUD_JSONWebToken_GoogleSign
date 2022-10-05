@@ -23,7 +23,7 @@ const login = async(req, res = response)=>{
             })
         };
 
-        //verificar la contraseña/password
+        //verificar la contraseña/password hasheado
         const validacionPassword = bcryptjs.compareSync(password, usuario.password)
         if(!validacionPassword){
             return res.status(400).json({
@@ -31,7 +31,7 @@ const login = async(req, res = response)=>{
             });
         };
 
-        //generar el json web toke (JWT) en base al id del usuario
+        //generar el json web token (JWT) en base al id del usuario
         const token = await generarJWT(usuario.id)
         
         res.json({

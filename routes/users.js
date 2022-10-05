@@ -2,9 +2,10 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import { deleteUsuario, getUsuario, patchUsuario, postUsuario, putUsuario } from "../controllers/users.js";
-import { validarCorreo, validarRol, validarUsuarioPorId } from "../helpers/db-validators.js";
+import { validarCorreo, validarUsuarioPorId } from "../helpers/db-validators.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
+import { tieneRol, validarAdminRole } from "../middlewares/validar-roles.js";
 //creamos la const 'router' que reemplazara a 'app'
 const router = Router()
 
@@ -36,6 +37,8 @@ router.patch('/', patchUsuario);
 
 router.delete('/:id', [
     validarJWT,
+    //validarAdminRole,
+    tieneRol('ADMIN_ROLE', 'USER_ROLE'),
     check('id', 'No es un ID valido').isMongoId(),
     check('id').custom(id => validarUsuarioPorId(id)),
     validarCampos
