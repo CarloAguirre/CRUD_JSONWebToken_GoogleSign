@@ -40,7 +40,7 @@
             //console.log(response.credential);
             const body = {id_token: response.credential};
 
-            fetch('https://resterver-crud.herokuapp.com',{
+            fetch('https://resterver-crud.herokuapp.com/api/auth/google',{
               //por defecto 'fetch' es una peticion get, debemos especificarla como post
               method: 'POST',
               headers: {
