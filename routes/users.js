@@ -3,7 +3,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 
 import { deleteUsuario, getUsuario, patchUsuario, postUsuario, putUsuario } from "../controllers/users.js";
-import { validarCorreo, validarUsuarioPorId } from "../helpers/db-validators.js";
+import { validarCorreo, validarRol, validarUsuarioPorId } from "../helpers/db-validators.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
 import { tieneRol, validarAdminRole } from "../middlewares/validar-roles.js";
@@ -28,7 +28,7 @@ router.post('/',[
     check('password', 'El password debe tener al menos 6 letras').isLength({ min: 6 }),
     check('correo', 'El correo no es valido').isEmail(), 
     check('correo').custom(correo => validarCorreo(correo)),
-    //check('rol', 'El rol no es válido').isIn(['ADMIN_ROLE', "USER_ROLE"]), <--- Esta linea esta optimizada en la linea siguiente
+    //check('rol', 'El rol no es válido').isIn(['ADMIN_ROLE', "USER_ROLE"]), //<--- Esta linea esta optimizada en la linea siguiente
     check('rol').custom(rol => validarRol(rol)),
     // Validaremos primero si los check(), enviado como middleware envian o no errores.
     validarCampos
