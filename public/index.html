@@ -10,12 +10,16 @@
     <h1>Google Sing-in</h1>
     <hr />
 
-    <div
+
+
+
+    <!-- Login con Google -->
+      <div
       id="g_id_onload"
       data-client_id="281195779311-hq2cni2u25u63d7n62iudo010tbthvng.apps.googleusercontent.com"
       data-auto_prompt="false"
       data-callback="handleCredentialResponse"></div>
-    <div
+      <div
       class="g_id_signin"
       data-type="standard"
       data-size="large"
@@ -23,8 +27,11 @@
       data-text="sign_in_with"
       data-shape="rectangular"
       data-logo_alignment="left"
-    ></div>
+      ></div>
 
+      <button id="google_singout">Sing out</button>
+
+    <!-- Google sig in script-->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         function handleCredentialResponse(response) {
@@ -44,11 +51,26 @@
               .then(resp =>resp.json())
               .then(resp=>{
                 console.log(resp)
+                //guardaremos el mail en el localstorage para luego hacer singout
+                localStorage.setItem('email', resp.usuario.correo)
               })
               .catch(console.warn)
-      
+        };
 
+        // Botón de singout
+        const button = document.getElementById('google_singout');
+        button.onclick = ()=>{
+
+          console.log(google.accounts.id)
+          google.accounts.id.disableAutoSelect()
+
+          //logout
+          google.accounts.id.revoke(localStorage.getItem('email'), done =>{
+            localStorage.clear();
+            location.reload();
+          })
         }
-      </script>
+      </script> 
+      <!-- fin de Google sing in script  -->
   </body>
 </html>

@@ -54,8 +54,7 @@ const login = async(req, res = response)=>{
 
 const googleSignIn = async(req, res = response)=>{
     const {id_token} = req.body
-    console.log(id_token)
-
+    
     try {
         //en helpers/google-verify.js desectructuramos y renombramos los valores de name, picture y email
         const {nombre, img, correo} = await googleVerify(id_token)
@@ -73,7 +72,6 @@ const googleSignIn = async(req, res = response)=>{
             }
 
             usuario = new Usuario(data);
-            console.log(usuario)
             await usuario.save();
         }
 
